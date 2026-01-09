@@ -1,77 +1,24 @@
-public class Patient {
-
-    private int id;
-    private String name;
-    private int age;
+public class Patient extends Person {
     private String diagnosis;
-    private boolean admitted;
+    private int wardNumber;
 
-    public Patient(int id, String name, int age, String diagnosis, boolean admitted) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
+    public Patient(int id, String name, String bloodType, String contactInfo, String diagnosis, int wardNumber) {
+        super(id, name, bloodType, contactInfo);
         this.diagnosis = diagnosis;
-        this.admitted = admitted;
-    }
-
-    public Patient() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getDiagnosis() {
-        return diagnosis;
-    }
-
-    public void setDiagnosis(String diagnosis) {
-        this.diagnosis = diagnosis;
-    }
-
-    public boolean isAdmitted() {
-        return admitted;
-    }
-
-    public void setAdmitted(boolean admitted) {
-        this.admitted = admitted;
-    }
-
-    public void admitPatient() {
-        admitted = true;
-    }
-
-    public void dischargePatient() {
-        admitted = false;
+        this.wardNumber = wardNumber;
     }
 
     @Override
-    public String toString() {
-        return "Patient{id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", diagnosis='" + diagnosis + '\'' +
-                ", admitted=" + admitted +
-                '}';
+    public void performAction() {
+        System.out.println("[Patient] " + name + " is resting in ward " + wardNumber + ".");
+    }
+
+    @Override
+    public void checkStatus() {
+        System.out.println("[Patient] " + name + " condition: stable. Diagnosis: " + diagnosis);
+    }
+
+    public void takeMedication() {
+        System.out.println(name + " is taking pills.");
     }
 }

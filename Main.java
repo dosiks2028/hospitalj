@@ -1,74 +1,59 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Main {
-
     public static void main(String[] args) {
+        ArrayList<Person> hospitalList = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        int choice;
 
+        do {
+            System.out.println("\n--- HOSPITAL SYSTEM ---");
+            System.out.println("1. Add Person");
+            System.out.println("2. Add Patient");
+            System.out.println("3. Add Doctor");
+            System.out.println("4. View All Objects");
+            System.out.println("5. Demonstrate Polymorphism");
+            System.out.println("6. Specific Child Methods (instanceof)");
+            System.out.println("0. Exit");
+            System.out.print("Choice: ");
 
-        Patient patient = new Patient(1, "Michael J.Fox", 0, "", false);
+            choice = sc.nextInt();
+            sc.nextLine(); // Очистка буфера
 
-
-        patient.setAge(26);
-        patient.setDiagnosis("Cold");
-
-
-        System.out.println("Patient name: " + patient.getName());
-        System.out.println("Patient age: " + patient.getAge());
-        System.out.println("Patient diagnosis: " + patient.getDiagnosis());
-        System.out.println("Is admitted: " + patient.isAdmitted());
-
-
-        patient.admitPatient();
-        System.out.println("After admit: " + patient.isAdmitted());
-
-        patient.dischargePatient();
-        System.out.println("After discharge: " + patient.isAdmitted());
-
-        System.out.println(patient);
-
-
-        Doctor doctor = new Doctor(101, "Dr. Brown", "Therapist", 10, true);
-
-
-        doctor.setExperienceYears(12);
-        doctor.setSpecialization("General Medicine");
-
-
-        System.out.println("Doctor name: " + doctor.getName());
-        System.out.println("Specialization: " + doctor.getSpecialization());
-        System.out.println("Experience: " + doctor.getExperienceYears());
-        System.out.println("Available: " + doctor.isAvailable());
-
-
-        doctor.endShift();
-        System.out.println("After end shift: " + doctor.isAvailable());
-
-        doctor.startShift();
-        System.out.println("After start shift: " + doctor.isAvailable());
-
-        System.out.println(doctor);
-
-
-        Appointment appointment = new Appointment(
-                1001,
-                "2025-01-10",
-                "14:30",
-                patient,
-                doctor
-        );
-
-
-        appointment.setDate("2025-01-11");
-        appointment.setTime("15:00");
-
-
-        System.out.println("Appointment date: " + appointment.getDate());
-        System.out.println("Appointment time: " + appointment.getTime());
-        System.out.println("Patient in appointment: " + appointment.getPatient().getName());
-        System.out.println("Doctor in appointment: " + appointment.getDoctor().getName());
-
-
-        System.out.println("Can be scheduled: " + appointment.canBeScheduled());
-        appointment.reschedule("2025-01-12", "16:00");
-
-        System.out.println(appointment);
+            switch (choice) {
+                case 1:
+                    hospitalList.add(new Person(1, "Staff Member", "B+", "Office"));
+                    System.out.println("Added Person.");
+                    break;
+                case 2:
+                    hospitalList.add(new Patient(10, "Alice", "O-", "555-01", "Flu", 101));
+                    System.out.println("Added Patient.");
+                    break;
+                case 3:
+                    hospitalList.add(new Doctor(20, "Dr. House", "A+", "555-99", "Diagnostic"));
+                    System.out.println("Added Doctor.");
+                    break;
+                case 4:
+                    for (Person p : hospitalList) { p.displayBasicInfo(); }
+                    break;
+                case 5:
+                    for (Person p : hospitalList) {
+                        p.performAction();
+                        p.checkStatus();
+                    }
+                    break;
+                case 6:
+                    for (Person p : hospitalList) {
+                        if (p instanceof Patient) {
+                            ((Patient) p).takeMedication();
+                        } else if (p instanceof Doctor) {
+                            ((Doctor) p).writePrescription();
+                        }
+                    }
+                    break;
+            }
+        } while (choice != 0);
+        sc.close();
     }
 }
